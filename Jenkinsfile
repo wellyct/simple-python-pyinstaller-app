@@ -37,10 +37,11 @@ pipeline {
                 IMAGE = 'cdrx/pyinstaller-linux:python2'
             }
             steps {
-                input message: 'Akan melanjukan ke proses deploy? (Klik "Proceed" untuk mengakhiri)' 
+                input message: 'Akan melanjukan ke proses deploy? (Klik "Abort" untuk mengakhiri)' 
                 dir(path: env.BUILD_ID) { 
                     unstash(name: 'compiled-results') 
                     sh "docker run --rm -v ${VOLUME} ${IMAGE} 'pyinstaller -F add2vals.py'" 
+		sleep 60
                 }
             }
             post {
