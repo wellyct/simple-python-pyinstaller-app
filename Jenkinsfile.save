@@ -3,9 +3,8 @@ pipeline {
     options {
         skipStagesAfterUnstable()
     }
-
     stages {
-        stage('Build') {
+        xstage('Build') {
             agent {
                 docker {
                     image 'python:2-alpine'
@@ -16,7 +15,6 @@ pipeline {
                 stash(name: 'compiled-results', includes: 'sources/*.py*')
             }
         }
-
         stage('Test') {
             agent {
                 docker {
@@ -32,16 +30,23 @@ pipeline {
                 }
             }
         }
-
 	stage('Manual Deploy'){
-		steps {
-                input message: 'Lanjutkan ke tahap Deploy? (Klik "Proceed" untuk melanjutkan dan "Abort" untuk membatalkan.)' 
+     
+	steps {
+                input message: 'Lanjukan ke tahap Deploy? (Klik "Proceed" untuk melanjutkan dan klik "Abort" untuk menbatalkan)' 
 		}
+	
 	}
+        
 
-        stage('Deploy') { 
+	stage('Deploy') { 
             agent any
-            environment { 
+         
+
+
+
+
+  environment { 
                 VOLUME = '$(pwd)/sources:/src'
                 IMAGE = 'cdrx/pyinstaller-linux:python2'
             }
