@@ -35,9 +35,10 @@ pipeline {
 
 	stage('Manual Deploy'){
 		steps {
-                input message: 'Lanjutkan ke tahap Deploy? (Klik "Proceed" untuk melanjutkan dan "Abort" untuk membatalkan.)' 
-		}
-	}
+                input message: 'Lanjutkan ke tahap Deploy? (Klik "Proceed" untuk melanjutkan dan "Abort" untuk membatalkan.)'
+                timeout(time: 1, unit: 'MINUTES')
+		    }
+	    }
 
         stage('Deploy') { 
             agent any
@@ -49,7 +50,7 @@ pipeline {
                 dir(path: env.BUILD_ID) { 
                     unstash(name: 'compiled-results') 
                     sh "docker run --rm -v ${VOLUME} ${IMAGE} 'pyinstaller -F add2vals.py'" 
-		sleep 60
+		            sleep 60
                 }
             }
             post {
