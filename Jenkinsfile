@@ -33,10 +33,10 @@ pipeline {
             }
         }
 
-	stage('Manual Deploy'){
+	stage('Manual Deploy') {
 		steps {
-                input message: 'Lanjutkan ke tahap Deploy? (Klik "Proceed" untuk melanjutkan dan "Abort" untuk membatalkan.)'
-                timeout(time: 1, unit: 'MINUTES')
+                timeout(time: 1, unit: 'MINUTES') {
+                input (message: 'Lanjutkan ke tahap Deploy? (Klik "Proceed" untuk melanjutkan dan "Abort" untuk membatalkan.')
 		    }
 	    }
 
