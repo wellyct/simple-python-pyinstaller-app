@@ -39,6 +39,7 @@ pipeline {
                 input (message: 'Lanjutkan ke tahap Deploy? (Klik "Proceed" untuk melanjutkan dan "Abort" untuk membatalkan.')
 		    }
 	    }
+	}
 
         stage('Deploy') { 
             agent any
